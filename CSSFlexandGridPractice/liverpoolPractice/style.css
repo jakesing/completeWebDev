@@ -1,0 +1,440 @@
+:root {
+	--liverpool-red: #e21b23;
+}
+
+* {
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body {
+	background: url("wallpaper.jpg");
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	color: #333;
+	font-size: 1.333rem;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.main-container {
+	background-color: #fff;
+	width: 70%;
+	margin: 0 auto;
+	max-width: 1300px;
+	box-shadow: 0 0 20px #5d5d5d;
+	display: flex;
+	flex-direction: column;
+	margin-top: -10px;
+}
+
+@media (max-width: 1800px) {
+	.main-container {
+		width: 100%;
+	}
+}
+
+.top-nav-bar {
+	justify-content: flex-end;	
+	display: flex;
+	justify-content: flex-end;
+	border-bottom: 1px solid #dadada;
+}
+
+.links-white {
+	display: flex;
+	justify-content: space-around;
+
+}
+
+.link:not(:last-child) {
+	border-right: 1px solid #eaeaea;
+}
+
+.gallery-link:not(:last-child) {
+	border-right: 1px solid #eaeaea;
+	padding:0px 20px 0px 20px;
+
+}
+
+.links-grey {
+	display: flex;
+	justify-content: space-around;
+	background-color: #4f4f4f;
+}
+
+.links-grey > .link {
+	color: #fff;
+}
+
+.link {
+	padding: 16px 12px;
+	font-size: 12px;
+	font-weight: lighter;
+}
+
+.logo-bar, .social-links {
+	height: 75px;
+}
+
+.logo-bar {
+	justify-content: space-between;
+	display: flex;
+
+}
+
+.social-links {
+	display: grid;
+	grid-template-columns: 30% 30% 40%;
+	align-items: center;
+
+}
+
+.you-are-here {
+	padding-left: 20px;
+	font-size: 14px;
+	color: #aaaaaa;
+}
+
+#home {
+	padding-left: 15px;
+	color: #333333;
+}
+
+.sponsor-logo {
+	height: 100%;
+	width: auto;
+}
+
+.more-sponsors {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.red-social-links {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.small-sponsor {
+	width: 60px;
+
+}
+
+.small-social {
+	width: 25px;
+	height: 25px;
+	margin-right: 15px;
+}
+.club-logo {
+	width: 120px;
+	padding-left: 15px;
+}
+
+.sc-logo {
+	height: 100%;
+	width: auto;
+}
+
+.main-nav {
+	height: 75px;
+	background-color: #e21b23;
+	display: grid;
+	grid-template-columns: 12% 70% 18%;
+}
+
+.main-nav-links {
+	display: flex;
+	color: #fff;
+	justify-content: space-around;
+	align-items: center;
+}
+.main-nav-link {
+	font-weight: lighter;
+	font-size: 17px;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	padding-top: 25px;
+}
+
+.main-nav-link:hover {
+	background-color: #b91520;
+}
+
+.social-links {
+	border-bottom: 5px solid #dddddd
+}
+
+.main-gallery {
+	height: 300px;
+	background-color: var(--liverpool-red);
+	border-top: 5px solid #b91520;
+	display: grid;
+	grid-template-columns: 5% 1.75fr 1.2fr 1.3fr 5%;
+}
+
+.main-gallery-hero {
+	background-color: blue;
+	border: 2px solid #fff;
+	width: auto;
+	margin: 25px;
+	background: url(klopp.jpeg);
+	background-size: cover;
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: 10px;
+}
+
+.arrow {
+	align-self: center;
+	background-color: #b91520;
+	height: 33%;
+}
+
+.main-gallery-secondary-links-section {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.secondary-link {
+	display: grid;
+	grid-template-columns: 1fr 10fr;
+	height: 22%;
+}
+
+.thumbnail {
+	background-color: green;
+	border: 2px solid #fff;
+	width: 100px;
+}
+
+#thumbnail1 {
+	background: url("thumbnail1.jpeg");
+	background-size: cover;
+}
+
+#thumbnail2 {
+	background: url("thumbnail2.jpg");
+	background-size: cover;
+}
+
+#thumbnail3 {
+	background: url("thumbnail3.jpg");
+	background-size: cover;
+}
+
+#thumbnail4 {
+	background: url("thumbnail4.jpg");
+	background-size: cover;
+}
+
+.small-link {
+	background-color: #e6373f;
+	margin-left: 4px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 6px 30px 6px 9px;
+}
+
+.gallery-links {
+	height: 75px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.gallery-link {
+	font-size: 16px;
+	font-weight: lighter;
+	color: #333;
+	padding: 20px;
+}
+
+.gallery-link:hover {
+	color: #e21b23;
+}
+
+.gallery-link:not(:last-child) {
+	border-right: 1px solid #eaeaea;
+	padding:0px 20px 0px 20px;
+
+}
+
+
+.sub-gallery {
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;	
+}
+
+.sub-gallery-strip {
+	display: flex;
+	justify-content: space-between;
+	padding: 25px;
+	margin-bottom: 20px;
+}
+
+.sub-gallery-header {
+	font-size: 32px;
+	font-weight: bold;	
+}
+
+.gallery-links {
+	border-top: 5px solid #b91520;
+	border-bottom: 5px solid #b91520;
+}
+
+
+.video-gallery {
+	display: flex;
+	justify-content: space-around;
+	height: 25vh;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+
+.video {
+	height: 295px;
+	width: 295px;
+	background-color: #dddddd;
+	box-shadow: 0 0 4px #5d5d5d;
+	display: grid;
+	grid-template-rows: 50% 50%;
+}
+
+.subvideo {
+	height: 50%;
+	width: 100%;
+}
+
+.video-media {
+	height: 100%;
+}
+
+.video-data {
+	background-color: #fff;
+	height: 100%;
+	display: grid;
+	grid-template-rows: 1fr 2fr 2fr 2fr;
+	padding-right: 20px;
+	padding-left: 15px;
+	padding-top: 10px;
+}
+
+.video-type {
+	color: #d5141a;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.video-title {
+	color: #333333;
+	font-weight: bold;
+	font-size: 19px;
+	align-self: center;
+	padding-top: 10px;
+	padding-right: 20px;
+}
+
+.video-date {
+	color: #777777;
+	font-size: 14px;
+	align-self: flex-end;
+	padding-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+.below-fold-news-table {
+	height: 2000px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
