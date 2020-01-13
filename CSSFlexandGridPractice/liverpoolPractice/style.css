@@ -192,11 +192,30 @@ body {
 	padding: 10px;
 }
 
-.arrow {
+.arrow-container {
 	align-self: center;
 	background-color: #b91520;
 	height: 33%;
 }
+
+.arrow {
+	width: 50%;
+	height: 60%;
+}
+
+.left-arrow {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 50px 30px 60px 0;
+	border-color: transparent #fff transparent transparent;
+}
+
+.right-arrow {
+	border-right: 2px solid #fde8e8;
+	border-bottom: 2px solid #fde8e8;
+}
+
 
 .main-gallery-secondary-links-section {
 	margin-top: 25px;
