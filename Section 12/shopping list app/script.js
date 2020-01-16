@@ -14,10 +14,10 @@ function addCrossoffEventListener(thing){
 //function to add delete button plus event listener.
 function addDeleteButton(location){
 	var newButton = document.createElement("button");
-	button.innerText = "Delete"
-	location.appendChild(button);
+	newButton.innerText = "Delete"
+	location.appendChild(newButton);
 
-	button.addEventListener("click", function() {
+	newButton.addEventListener("click", function() {
 		this.parentElement.style.display = 'none';
 	})
 }
