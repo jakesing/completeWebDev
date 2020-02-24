@@ -1,4 +1,5 @@
 import React from 'react';
+import Form from '../form/form'
 
 class SignIn extends React.Component {
 	constructor(props){
@@ -16,6 +17,16 @@ class SignIn extends React.Component {
 
 	onPasswordChange = (event) => {
 		this.setState({signInPassword: event.target.value})
+	}
+
+	displayErrorMessage = () => {
+		return this.state.signInError
+		? (
+			this.state.signInEmail === '' 
+			? <h2 className="f3 fw6 ph0 mh0">Log-in Error</h2> 
+			: '' 
+			)
+		: ''
 	}
 
 	onSubmitSignIn = () => {
@@ -42,49 +53,46 @@ class SignIn extends React.Component {
 
 	render() {
 		const { onRouteChange } = this.props;	
-		return (
-		<article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-			<main className="pa4 black-80">
-			  <div className="measure">
-			    <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-			      <legend className="f1 fw6 ph0 mh0">Sign In</legend>
+		let formFields = [
+		    {
+		      title: 'Email: ', 
+		      classname: 'pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100', 
+		      type: 'email', 
+		      name: 'email', 
+		      id: 'email',
+		      onChange: this.onEmailChange
+		    },
+		    {
+		      title: 'Password: ', 
+		      classname: 'pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100', 
+		      type: 'password', 
+		      name: 'password', 
+		      id: 'password',
+		      onChange: this.onPasswordChange
+		    }
+		  ]
 
-				  	{/*Log in error:*/}
-				    {this.state.signInError ? <h2 className="f3 fw6 ph0 mh0">Log-in Error</h2> : ''}
-			    
-			      <div className="mt3">
-			        <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-			        <input
-			        	className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
-			        	type="email" 
-			        	name="email-address"  
-			        	id="email-address"
-			        	onChange={this.onEmailChange} />
-			      </div>
-			      <div className="mv3">
-			        <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-			        <input 
-			        	className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
-			        	type="password" 
-			        	name="password"  
-			        	id="password"
-			        	onChange={this.onPasswordChange} />
-			      </div>
-			    </fieldset>
-			    <div className="">
-			      <input 
-			      	onClick = {this.onSubmitSignIn}
-			      	className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
-			      	type="submit" 
-			      	value="Sign in" 
-			      	/>
-			    </div>
-			    <div className="lh-copy mt3">
-			      <p onClick = {() => onRouteChange('register')} className="f6 link dim black db pointer">Register</p>
-			    </div>
-			  </div>
-			</main>
-		</article>
+		let submitButton = {
+			    className: "b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib",
+			    type: "submit",
+			    value: "Sign in",
+			    onclick: this.onSubmitSignIn
+	  		};
+
+	  	let reRouteButton = {
+	  		onclick: () => onRouteChange('register'),
+	  		classname: "f6 link dim black db pointer",
+	  		text: 'New User? Register Instead'
+	  	}
+
+		return (
+			<Form 
+				formTitle = 'Sign In' 
+				formID = 'sign_in'
+				fields = {formFields} 
+				submitButton = {submitButton} 
+				errorMessage = {this.displayErrorMessage()}
+				altButton = {reRouteButton}/>
 		);
 	}
 }

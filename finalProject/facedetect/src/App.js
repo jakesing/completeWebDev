@@ -10,7 +10,6 @@ import FaceRecognition from './components/facerecognition/facerecognition'
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 
-
 const app = new Clarifai.App({
   apiKey: 'be994157fb36424388d2ae834cb18ac3'
 });
@@ -27,24 +26,26 @@ const particlesOptions = {
   }
 }
 
+const initialState = {
+    input: '',
+    imageURL: '',
+    box: {},
+    route: 'signin',
+    isSignedIn: false,
+    user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: '',
+        rank: null
+      }
+}
+
 class App extends Component {
   constructor(){
     super();
-    this.state = {
-      input: '',
-      imageURL: '',
-      box: {},
-      route: 'signin',
-      isSignedIn: false,
-      user: {
-          id: '',
-          name: '',
-          email: '',
-          entries: 0,
-          joined: '',
-          rank: null
-      }
-    }
+    this.state = initialState;
   }
 
   loadUser = (data) => {
@@ -121,23 +122,26 @@ class App extends Component {
           .then(entries => {
             this.setState(Object.assign(this.state.user, {entries: entries}))
           })
+          .catch(console.log);
       }
       this.displayFaceBox(this.calculateFaceLocation(response.outputs[0].data.regions[0].region_info.bounding_box))
     })
     .catch(err => console.log(err));
 
     this.getRank();
+    console.log(this.state);
   }
 
   onRouteChange = (route) => {
     if(route==='signout') {
-      this.setState({isSignedIn: false})
+      this.setState(initialState)
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
-      console.log(this.state.user)
+      console.log(this.state)
     }
     this.setState({route: route})
   }
+
 
   render(){
     const { isSignedIn, imageURL, route, box } = this.state;
