@@ -10,6 +10,8 @@ import FaceRecognition from './components/facerecognition/facerecognition'
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 
+
+
 const app = new Clarifai.App({
   apiKey: 'be994157fb36424388d2ae834cb18ac3'
 });
@@ -25,6 +27,9 @@ const particlesOptions = {
     }
   }
 }
+
+
+
 
 const initialState = {
     input: '',
@@ -141,6 +146,8 @@ class App extends Component {
     }
     this.setState({route: route})
   }
+
+
 
 
   render(){

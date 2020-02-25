@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from '../form/form'
+import EmailValidator from 'email-validator'
 
 class Register extends React.Component{
 	constructor(props){
@@ -7,12 +8,22 @@ class Register extends React.Component{
 		this.state = {
 			email: '',
 			password: '',
-			name: ''
+			name: '',
+			regAttempted: false,
+			validName: false,
+			validEmail: false,
+			validPassword: false
 		}
 	}
 
+	passwordValidator = () => {
+		return this.state.password.length > 8
+	}
+
 	onEmailChange = (event) => {
-		this.setState({email: event.target.value})
+		this.setState({	
+						email: event.target.value, 
+					})
 	}
 
 	onPasswordChange = (event) => {
@@ -23,31 +34,51 @@ class Register extends React.Component{
 		this.setState({name: event.target.value})
 	}
 
-	onSubmitRegister = () => {
-		fetch('http://localhost:3000/register', {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				name: this.state.name,
-				email: this.state.email,
-				password: this.state.password
-			})
-		})
-			.then(response => response.json())
-			.then(user => {
-				if(user){
-					this.props.loadUser(user)
-					this.props.onRouteChange('home');
-				} 
-			})
-	}	
-
 	displayErrorMessage = () => {
-		//placeholder for 'invalid email' error
+		//placeholder for 'invalid creds' error
+		if(this.state.regAttempted){
+			if(!this.state.validName){
+				return <h2 className="f3 fw6 ph0 mh0">Please enter a name</h2>
+			} else if (!this.state.validEmail) {
+				return <h2 className="f3 fw6 ph0 mh0">Invalid Email</h2>
+			} else {
+				return <h2 className="f3 fw6 ph0 mh0">Password must be longer than 8 characters</h2>
+			}
+		}
 	}
 
+	onSubmitRegister = () => {
+		this.setState({	
+				regAttempted: true,
+				validName: this.state.name != '',
+				validEmail: EmailValidator.validate(this.state.email), 
+				validPassword: this.passwordValidator(this.state.password)
+			})
+
+		if(this.state.validName && this.state.validEmail && this.state.validPassword){
+			fetch('http://localhost:3000/register', {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					name: this.state.name,
+					email: this.state.email,
+					password: this.state.password
+				})
+			})
+				.then(response => response.json())
+				.then(user => {
+					//need to check for user id - not just user
+					if(user.id){
+						this.props.loadUser(user)
+						this.props.onRouteChange('home');
+					} 
+				})
+			} else {
+				console.log('something is not valid')
+			}
+	}	
 
 	render() {
 		const { onRouteChange } = this.props;	
