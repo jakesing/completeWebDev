@@ -8,13 +8,8 @@ import SignIn from './components/signin/signin'
 import Register from './components/register/register'
 import FaceRecognition from './components/facerecognition/facerecognition'
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 
 
-
-const app = new Clarifai.App({
-  apiKey: 'be994157fb36424388d2ae834cb18ac3'
-});
 
 const particlesOptions = {
   particles: {
@@ -109,33 +104,39 @@ class App extends Component {
   onPictureSubmit = () => {
     this.setState({imageURL: this.state.input})
     //https://samples.clarifai.com/face-det.jpg
-    app.models.predict(
-      Clarifai.FACE_DETECT_MODEL,
-      this.state.input)
-    .then(response => {
-      if (response) {
-        fetch('http://localhost:3000/image', {
-          method: 'put',
+    fetch('http://localhost:3000/imageurl', {
+          method: 'post',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            id: this.state.user.id
+            input: this.state.input
           })
         })
           .then(response => response.json())
-          .then(entries => {
-            this.setState(Object.assign(this.state.user, {entries: entries}))
+          .then(response => {
+            if (response) {
+              fetch('http://localhost:3000/image', {
+                method: 'put',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  id: this.state.user.id
+                })
+              })
+                .then(response => response.json())
+                .then(entries => {
+                  this.setState(Object.assign(this.state.user, {entries: entries}))
+                })
+                .catch(console.log);
+            }
+            this.displayFaceBox(this.calculateFaceLocation(response.outputs[0].data.regions[0].region_info.bounding_box))
           })
-          .catch(console.log);
-      }
-      this.displayFaceBox(this.calculateFaceLocation(response.outputs[0].data.regions[0].region_info.bounding_box))
-    })
-    .catch(err => console.log(err));
+          .catch(err => console.log(err))
 
-    this.getRank();
-    console.log(this.state);
-  }
+          this.getRank();
+        }
 
   onRouteChange = (route) => {
     if(route==='signout') {

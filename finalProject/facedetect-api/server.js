@@ -43,6 +43,7 @@ app.put('/rank', (req, res) => { rank.handleRank(req, res, db)})
 
 //increments the entries count
 app.put('/image', (req, res) => { image.handleImage(req, res, db) }) 
+app.post('/imageurl', (req, res) => { image.handleAPICall(req, res) }) 
 
 
 app.listen(3000, ()=> {
