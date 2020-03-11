@@ -1,57 +1,57 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import SearchBox from '../components/SearchBox';
 import CardList from '../components/CardList';
 import './App.css';
 import Scroll from '../components/Scroll';
 import ErrorBoundary from '../components/ErrorBoundary'
+import { setSearchField, requestRobots } from '../actions'
+
+const mapStateToProps = (state) => {
+	return {
+		searchField: state.searchRobots.searchField,
+		robots: state.requestRobots.robots,
+		isPending: state.requestRobots.isPending,
+		error: state.requestRobots.error
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+		onRequestRobots: () => dispatch(requestRobots())
+	}	
+}
 
 class App extends Component {
-	constructor() {
-		super()
-		//App has two states - this is what changes in the app.
-		this.state = {
-			robots: [],
-			searchfield: ''
-		}
-	}
-
 	componentDidMount(){
-		fetch('https://jsonplaceholder.typicode.com/users')
-			.then(response => response.json())
-			.then(users => {this.setState({ robots: users})})
-	}
-
-	//we manage the state in here: we will change the search box every time there's a change:
-	onSearchChange = (event) => {
-		this.setState({searchfield: event.target.value});
-
-		// this.setState({robots: filteredRobots});
+		this.props.onRequestRobots();
 	}
 
 	render() {
 		//destructuring, allows us to refer to robots and searchfield without needing to use 'this.state'
-		const { robots, searchfield } = this.state;
-
+		const { searchField, onSearchChange, robots, isPending } = this.props;
 		//based on the current state, we can render the filtered robots.
 		const filteredRobots = robots.filter(robot => {
-			return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+			return robot.name.toLowerCase().includes(searchField.toLowerCase());
 		})
 
 		//check for if there are no robots - if there are none, render the h1, otherwise, render our components.
-		return !robots.length ? 
+		return isPending ? 
 		<h1 className='tc'>Loading</h1> :
 			(
-				<fragment className='tc flex flex-column'>
+				<div className='tc flex flex-column'>
 					<h1 className='f1'>Robofriends</h1>
-					<SearchBox searchChange={this.onSearchChange}/>
+					<SearchBox searchChange={onSearchChange}/>
 					<Scroll>
 						<ErrorBoundary>
 							<CardList robots={filteredRobots}/>
 						</ErrorBoundary>
 					</Scroll>
-				</fragment>
+				</div>
 			)
 	}
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
